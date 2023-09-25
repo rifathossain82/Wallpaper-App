@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/src/core/routes/routes.dart';
+import 'package:wallpaper_app/src/core/services/navigation_services.dart';
 import 'package:wallpaper_app/src/core/utils/app_constants.dart';
 import 'package:wallpaper_app/src/core/utils/color.dart';
 import 'package:wallpaper_app/src/view/category/pages/category_page.dart';
@@ -12,8 +14,8 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> with SingleTickerProviderStateMixin{
-
+class _DashboardPageState extends State<DashboardPage>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
@@ -26,7 +28,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
     super.initState();
   }
 
-  List<Tab> tabs = const[
+  List<Tab> tabs = const [
     Tab(child: Text('HOME')),
     Tab(child: Text('CATEGORIES')),
     Tab(child: Text('PREMIUM')),
@@ -38,13 +40,12 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
     const PremiumPage(),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
         floatHeaderSlivers: true,
-        headerSliverBuilder: (context, value){
+        headerSliverBuilder: (context, value) {
           return [
             SliverOverlapAbsorber(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -54,8 +55,10 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
                   title: const Text(AppConstants.appName),
                   actions: [
                     IconButton(
-                        onPressed: (){},
-                        icon: const Icon(Icons.search)
+                      onPressed: () => NavigationService.pushNamed(
+                        routeName: RouteGenerator.search,
+                      ),
+                      icon: const Icon(Icons.search),
                     ),
                   ],
                   bottom: TabBar(
@@ -80,5 +83,4 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
       ),
     );
   }
-
 }
