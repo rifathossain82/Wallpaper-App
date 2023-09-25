@@ -3,6 +3,7 @@ import 'package:wallpaper_app/src/core/utils/app_constants.dart';
 import 'package:wallpaper_app/src/core/utils/color.dart';
 import 'package:wallpaper_app/src/view/category/pages/category_page.dart';
 import 'package:wallpaper_app/src/view/home/pages/homepage.dart';
+import 'package:wallpaper_app/src/view/premium/pages/premium_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
   List<Widget> pages = [
     const Homepage(),
     const CategoryPage(),
-    Container(),
+    const PremiumPage(),
   ];
 
 
