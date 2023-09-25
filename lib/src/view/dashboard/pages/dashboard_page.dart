@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/src/core/utils/app_constants.dart';
 import 'package:wallpaper_app/src/core/utils/color.dart';
+import 'package:wallpaper_app/src/view/category/pages/category_page.dart';
 import 'package:wallpaper_app/src/view/home/pages/homepage.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
 
   List<Widget> pages = [
     const Homepage(),
-    Container(),
+    const CategoryPage(),
     Container(),
   ];
 
