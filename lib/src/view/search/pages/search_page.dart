@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/src/core/extensions/build_context_extension.dart';
 import 'package:wallpaper_app/src/view/search/widgets/search_field_widget.dart';
 
 class SearchPage extends StatefulWidget {
@@ -31,15 +32,19 @@ class _SearchPageState extends State<SearchPage> {
         title: SearchFieldWidget(
           controller: searchTextController,
           hasText: hasText,
-          onChanged: (value){
-            setState(() {
+          onChanged: (value) {
+            if (value.toString().isNotEmpty) {
               hasText = true;
-            });
+            } else {
+              hasText = false;
+            }
+            setState(() {});
           },
-          onClose: (){
+          onClose: () {
             setState(() {
               hasText = false;
               searchTextController.clear();
+              context.unFocusKeyboard();
             });
           },
         ),
