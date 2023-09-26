@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/src/core/utils/color.dart';
 
@@ -21,6 +22,7 @@ class SearchFieldWidget extends StatelessWidget {
       height: 45,
       child: TextField(
         controller: controller,
+        onChanged: onChanged,
         maxLines: 1,
         textAlign: TextAlign.start,
         keyboardType: TextInputType.text,
@@ -40,15 +42,17 @@ class SearchFieldWidget extends StatelessWidget {
           isDense: true,
           suffixIcon: hasText
               ? IconButton(
-                  icon: const Icon(
-                    Icons.close,
+                  icon: Icon(
+                    CupertinoIcons.clear_circled_solid,
                     size: 20,
+                    color: kWhite,
                   ),
                   onPressed: onClose,
                 )
-              : const Icon(
+              : Icon(
                   Icons.search,
                   size: 20,
+                  color: kGreyMedium,
                 ),
         ),
       ),
