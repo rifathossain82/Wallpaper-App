@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/src/core/extensions/build_context_extension.dart';
+import 'package:wallpaper_app/src/view/search/widgets/initial_search_content_widget.dart';
 import 'package:wallpaper_app/src/view/search/widgets/search_field_widget.dart';
+import 'package:wallpaper_app/src/view/search/widgets/search_result_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final searchTextController = TextEditingController();
-  bool hasText = false;
+  bool hasSearchText = false;
 
   @override
   void initState() {
@@ -31,24 +33,27 @@ class _SearchPageState extends State<SearchPage> {
         titleSpacing: 10,
         title: SearchFieldWidget(
           controller: searchTextController,
-          hasText: hasText,
+          hasText: hasSearchText,
           onChanged: (value) {
             if (value.toString().isNotEmpty) {
-              hasText = true;
+              hasSearchText = true;
             } else {
-              hasText = false;
+              hasSearchText = false;
             }
             setState(() {});
           },
           onClose: () {
             setState(() {
-              hasText = false;
+              hasSearchText = false;
               searchTextController.clear();
               context.unFocusKeyboard();
             });
           },
         ),
       ),
+      body: hasSearchText
+          ? const SearchResultWidget()
+          : const InitialSearchContentWidget(),
     );
   }
 }
