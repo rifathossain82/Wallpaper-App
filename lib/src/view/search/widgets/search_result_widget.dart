@@ -6,9 +6,11 @@ class SearchResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WallpapersGridViewWidget(
+    return const WallpapersGridViewWidget(
       shrinkWrap: false,
       physics: AlwaysScrollableScrollPhysics(),
+      hasReachedMax: false,
+      photoList: [],
     );
   }
 }

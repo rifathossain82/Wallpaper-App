@@ -47,7 +47,9 @@ dependencies:
   carousel_slider: ^4.2.1
   get_it: ^7.2.0
   flutter_riverpod: ^2.3.7
+  equatable: ^2.0.5
   dartz: ^0.10.1
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

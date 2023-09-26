@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:wallpaper_app/src/core/enums/app_enum.dart';
 import 'package:wallpaper_app/src/core/errors/messages.dart';
 import 'package:wallpaper_app/src/core/helpers/helper_methods.dart';
+import 'package:wallpaper_app/src/core/helpers/logger.dart';
+import 'package:wallpaper_app/src/core/network/api.dart';
 import 'package:wallpaper_app/src/core/services/local_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,13 +14,11 @@ class Network {
       throw Message.noInternet;
     }
 
-    kPrint("\nYou hit: $api");
-    kPrint("Request Params: $params");
+    Log.info('\nYou hit: $api\nRequest Params: $params');
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization":
-          "Bearer ${LocalStorage.getData(key: LocalStorageKey.token)}"
+      "Authorization": Api.apiKey,
     };
 
     http.Response response = await http.get(
@@ -37,13 +37,11 @@ class Network {
       throw Message.noInternet;
     }
 
-    kPrint('\nYou hit: $api');
-    kPrint('Request Body: ${jsonEncode(body)}');
+    Log.info('\nYou hit: $api\nRequest Body: ${jsonEncode(body)}');
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization":
-          "Bearer ${LocalStorage.getData(key: LocalStorageKey.token)}"
+      "Authorization": Api.apiKey,
     };
 
     if (addContentType) {
@@ -59,19 +57,20 @@ class Network {
     return response;
   }
 
-  static Future<http.Response> putRequest({required String api, body,
-    bool addContentType = false,}) async {
+  static Future<http.Response> putRequest({
+    required String api,
+    body,
+    bool addContentType = false,
+  }) async {
     if (!await hasInternet) {
       throw Message.noInternet;
     }
 
-    kPrint('\nYou hit: $api');
-    kPrint('Request Body: ${jsonEncode(body)}');
+    Log.info('\nYou hit: $api\nRequest Body: ${jsonEncode(body)}');
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization":
-          "Bearer ${LocalStorage.getData(key: LocalStorageKey.token)}"
+      "Authorization": Api.apiKey,
     };
 
     if (addContentType) {
@@ -92,13 +91,11 @@ class Network {
       throw Message.noInternet;
     }
 
-    kPrint('\nYou hit: $api');
-    kPrint('Request Body: ${jsonEncode(body)}');
+    Log.info('\nYou hit: $api\nRequest Body: ${jsonEncode(body)}');
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization":
-          "Bearer ${LocalStorage.getData(key: LocalStorageKey.token)}"
+      "Authorization": Api.apiKey,
     };
 
     http.Response response = await http.delete(
@@ -119,13 +116,11 @@ class Network {
       throw Message.noInternet;
     }
 
-    kPrint("\nYou hit: $api");
-    kPrint("Request body: $body");
+    Log.info('\nYou hit: $api\nRequest Body: ${jsonEncode(body)}');
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization":
-          "Bearer ${LocalStorage.getData(key: LocalStorageKey.token)}"
+      "Authorization": Api.apiKey,
     };
 
     var request = http.MultipartRequest('POST', Uri.parse(api))
@@ -153,8 +148,9 @@ class Network {
       }
 
       if (response.statusCode >= 200 && response.statusCode <= 210) {
-        kPrint('SuccessCode: ${response.statusCode}');
-        kPrint('SuccessResponse: ${response.body}');
+        Log.debug(
+          'SuccessCode: ${response.statusCode}\nSuccessResponse: ${response.body}',
+        );
 
         if (response.body.isNotEmpty) {
           return json.decode(response.body);
@@ -175,8 +171,9 @@ class Network {
       } else if (response.statusCode == 500) {
         throw Message.error500;
       } else {
-        kPrint('ErrorCode: ${response.statusCode}');
-        kPrint('ErrorResponse: ${response.body}');
+        Log.error(
+          'ErrorCode: ${response.statusCode}\nErrorResponse: ${response.body}',
+        );
 
         String msg = Message.unknown;
         if (response.body.isNotEmpty) {

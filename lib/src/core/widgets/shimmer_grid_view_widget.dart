@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:wallpaper_app/src/core/widgets/bottom_loader.dart';
+import 'package:wallpaper_app/src/core/widgets/k_shimmer_container.dart';
 import 'package:wallpaper_app/src/core/widgets/wallpaper_item_widget.dart';
-import 'package:wallpaper_app/src/model/wallpaper_model.dart';
 
-class WallpapersGridViewWidget extends StatelessWidget {
-  final List<Photo> photoList;
-  final bool hasReachedMax;
+class ShimmerGridViewWidget extends StatelessWidget {
   final ScrollPhysics physics;
   final bool shrinkWrap;
 
-  const WallpapersGridViewWidget({
+  const ShimmerGridViewWidget({
     Key? key,
-    required this.photoList,
-    required this.hasReachedMax,
     this.physics = const NeverScrollableScrollPhysics(),
     this.shrinkWrap = true,
   }) : super(key: key);
@@ -30,12 +25,10 @@ class WallpapersGridViewWidget extends StatelessWidget {
         crossAxisSpacing: 4,
         childAspectRatio: 1 / 2,
       ),
-      itemCount: hasReachedMax ? photoList.length : photoList.length + 1,
-      itemBuilder: (context, index) => index >= photoList.length
-          ? const BottomLoader()
-          : WallpaperItemWidget(
-              imgUrl: '${photoList[index].src?.original}',
-            ),
+      itemCount: 30,
+      itemBuilder: (context, index) => const KShimmerContainer(
+        borderRadius: 8,
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wallpaper_app/src/core/di/injection_container.dart';
 import 'package:wallpaper_app/src/core/routes/routes.dart';
@@ -26,7 +27,11 @@ Future<void> main() async {
   /// local storage
   await GetStorage.init();
 
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/src/core/widgets/wallpaper_item_widget.dart';
 import 'package:wallpaper_app/src/core/widgets/wallpapers_grid_view_widget.dart';
 
 class PremiumPage extends StatelessWidget {
@@ -6,6 +7,9 @@ class PremiumPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const WallpapersGridViewWidget();
+    return const WallpapersGridViewWidget(
+      hasReachedMax: false,
+      photoList: [],
+    );
   }
 }

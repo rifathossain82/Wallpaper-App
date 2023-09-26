@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wallpaper_app/src/core/enums/app_enum.dart';
+import 'package:wallpaper_app/src/core/widgets/failure_widget_builder.dart';
 import 'package:wallpaper_app/src/core/widgets/k_title_widget.dart';
+import 'package:wallpaper_app/src/core/widgets/shimmer_grid_view_widget.dart';
 import 'package:wallpaper_app/src/core/widgets/wallpapers_grid_view_widget.dart';
+import 'package:wallpaper_app/src/view_model/home/home_provider.dart';
 
-class WallpapersWidget extends StatelessWidget {
-  const WallpapersWidget({Key? key}) : super(key: key);
+class WallpapersWidget extends ConsumerWidget {
+  const WallpapersWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final homeState = ref.watch(homeProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        KTitleWidget(
+      children: [
+        const KTitleWidget(
           text: 'Wallpapers',
           padding: EdgeInsets.only(
             top: 25,
@@ -19,7 +27,14 @@ class WallpapersWidget extends StatelessWidget {
             right: 8,
           ),
         ),
-        WallpapersGridViewWidget(),
+        homeState.wallpaperStatus == Status.loading
+            ? const ShimmerGridViewWidget()
+            : homeState.wallpaperStatus == Status.failure
+                ? const FailureWidgetBuilder()
+                : WallpapersGridViewWidget(
+                    hasReachedMax: homeState.hasReachedMax,
+                    photoList: homeState.photoList,
+                  ),
       ],
     );
   }
