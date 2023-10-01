@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/src/core/enums/app_enum.dart';
-import 'package:wallpaper_app/src/core/helpers/helper_methods.dart';
 import 'package:wallpaper_app/src/core/helpers/logger.dart';
 import 'package:wallpaper_app/src/core/services/snackbar_services.dart';
 import 'package:wallpaper_app/src/core/utils/color.dart';
@@ -26,7 +25,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
       final Map<String, dynamic> params = {
         'page': '$pageNumber',
-        'per_page': '30',
+        'per_page': '21',
       };
 
       final result = await repository.fetchWallpaperList(params: params);
