@@ -34,7 +34,7 @@ class WallpapersGridViewWidget extends StatelessWidget {
       itemBuilder: (context, index) => index >= photoList.length
           ? const BottomLoader()
           : WallpaperItemWidget(
-              imgUrl: '${photoList[index].src?.original}',
+              imgUrl: '${photoList[index].src?.portrait}',
             ),
     );
   }
