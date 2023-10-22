@@ -20,7 +20,7 @@ class _HomepageState extends ConsumerState<Homepage> {
 
   @override
   void initState() {
-    ref.read(homeProvider.notifier).getWallpaperList();
+    ref.read(homeProvider.notifier).getWallpaperList(reload: true);
 
     scrollIndicator();
     super.initState();
