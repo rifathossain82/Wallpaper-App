@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:wallpaper_app/src/core/enums/app_enum.dart';
+import 'package:wallpaper_app/src/model/featured_model.dart';
 import 'package:wallpaper_app/src/model/wallpaper_model.dart';
 
 class HomeState extends Equatable {
@@ -8,6 +9,7 @@ class HomeState extends Equatable {
     this.popularCollectionsStatus = Status.initial,
     this.wallpaperStatus = Status.initial,
     this.message = '',
+    this.featuredList = const <FeaturedModel>[],
     this.photoList = const <Photo>[],
     this.hasReachedMax = false,
     this.pageNumber = 0,
@@ -17,6 +19,7 @@ class HomeState extends Equatable {
   final Status popularCollectionsStatus;
   final Status wallpaperStatus;
   final String message;
+  final List<FeaturedModel> featuredList;
   final List<Photo> photoList;
   final bool hasReachedMax;
   final int pageNumber;
@@ -26,6 +29,7 @@ class HomeState extends Equatable {
     Status? popularCollectionsStatus,
     Status? wallpaperStatus,
     String? message,
+    List<FeaturedModel>? featuredList,
     List<Photo>? photoList,
     bool? hasReachedMax,
     int? pageNumber,
@@ -35,6 +39,7 @@ class HomeState extends Equatable {
       popularCollectionsStatus: popularCollectionsStatus ?? this.popularCollectionsStatus,
       wallpaperStatus: wallpaperStatus ?? this.wallpaperStatus,
       message: message ?? this.message,
+      featuredList: featuredList ?? this.featuredList,
       photoList: photoList ?? this.photoList,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       pageNumber: pageNumber ?? this.pageNumber,
@@ -48,6 +53,7 @@ class HomeState extends Equatable {
       popularCollectionsStatus: $popularCollectionsStatus, 
       wallpaperStatus: $wallpaperStatus, 
       message: $message,
+      featuredList: ${featuredList.length},
       photoList: ${photoList.length},
       hasReachedMax: $hasReachedMax,
       pageNumber: $pageNumber,
@@ -60,6 +66,7 @@ class HomeState extends Equatable {
     popularCollectionsStatus,
     wallpaperStatus,
     message,
+    featuredList,
     photoList,
     hasReachedMax,
     pageNumber,

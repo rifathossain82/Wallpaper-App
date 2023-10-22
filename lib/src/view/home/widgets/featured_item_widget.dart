@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:wallpaper_app/src/core/extensions/build_context_extension.dart';
 import 'package:wallpaper_app/src/core/utils/color.dart';
 import 'package:wallpaper_app/src/core/widgets/cached_network_image_builder.dart';
+import 'package:wallpaper_app/src/model/featured_model.dart';
 
 class FeaturedItemWidget extends StatelessWidget {
   final double itemWidth;
+  final FeaturedModel featuredData;
 
   const FeaturedItemWidget({
     Key? key,
     required this.itemWidth,
+    required this.featuredData,
   }) : super(key: key);
 
   @override
@@ -23,7 +26,7 @@ class FeaturedItemWidget extends StatelessWidget {
         alignment: Alignment.centerLeft,
         children: [
           CachedNetworkImageBuilder(
-            imgURl: 'https://images.pexels.com/photos/2379653/pexels-photo-2379653.jpeg?cs=srgb&dl=pexels-david-bartus-2379653.jpg&fm=jpg',
+            imgURl: featuredData.image,
             borderRadius: BorderRadius.circular(8),
             fit: BoxFit.cover,
             height: double.infinity,
@@ -34,7 +37,7 @@ class FeaturedItemWidget extends StatelessWidget {
             left: 5,
             right: 5,
             child: Text(
-              'Fall Season ',
+              featuredData.name,
               maxLines: 2,
               textAlign: TextAlign.start,
               style: context.textTheme.bodySmall,

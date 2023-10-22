@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/src/core/enums/app_enum.dart';
 import 'package:wallpaper_app/src/core/widgets/failure_widget_builder.dart';
 import 'package:wallpaper_app/src/core/widgets/k_title_widget.dart';
 import 'package:wallpaper_app/src/core/widgets/shimmer_grid_view_widget.dart';
 import 'package:wallpaper_app/src/core/widgets/wallpapers_grid_view_widget.dart';
-import 'package:wallpaper_app/src/view_model/home/home_provider.dart';
+import 'package:wallpaper_app/src/view_model/home/home_state.dart';
 
-class WallpapersWidget extends ConsumerWidget {
+class WallpapersWidget extends StatelessWidget {
+  final HomeState homeState;
+
   const WallpapersWidget({
     Key? key,
+    required this.homeState,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final homeState = ref.watch(homeProvider);
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

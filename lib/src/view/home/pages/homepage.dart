@@ -20,7 +20,7 @@ class _HomepageState extends ConsumerState<Homepage> {
 
   @override
   void initState() {
-    ref.read(homeProvider.notifier).getWallpaperList(reload: true);
+    ref.read(homeProvider.notifier)..getFeaturedList()..getWallpaperList(reload: true);
 
     scrollIndicator();
     super.initState();
@@ -48,14 +48,19 @@ class _HomepageState extends ConsumerState<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    final homeState = ref.watch(homeProvider);
     return SingleChildScrollView(
       controller: _scrollController,
       child: Column(
         children: [
-          FeaturedWidget(),
+          FeaturedWidget(
+            homeState: homeState,
+          ),
           SliderWidget(),
           PopularCollectionsWidget(),
-          WallpapersWidget(),
+          WallpapersWidget(
+            homeState: homeState,
+          ),
         ],
       ),
     );
