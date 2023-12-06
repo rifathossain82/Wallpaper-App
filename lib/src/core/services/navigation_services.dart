@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:wallpaper_app/src/core/di/injection_container.dart';
 
 class NavigationService {
-  static final NavigatorState? _navigatorState = sl.get<GlobalKey<NavigatorState>>().currentState;
+  static final NavigationService _instance = NavigationService._internal();
 
-  static void pop({dynamic result}) => _navigatorState?.pop(result);
+  static NavigationService get instance => _instance;
 
-  static Future? push(Widget nextPage) => _navigatorState?.push(
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+
+  static NavigatorState get currentState => navigatorKey.currentState!;
+
+  factory NavigationService() {
+    return _instance;
+  }
+
+  NavigationService._internal();
+
+  static void pop({dynamic result}) => currentState.pop(result);
+
+  static Future? push(Widget nextPage) => currentState.push(
         MaterialPageRoute(
           builder: (context) => nextPage,
         ),
       );
 
   static Future? pushReplacement(Widget nextPage) =>
-      _navigatorState?.pushReplacement(
+      currentState.pushReplacement(
         MaterialPageRoute(
           builder: (context) => nextPage,
         ),
       );
 
   static Future? pushAndRemoveUntil(Widget nextPage) =>
-      _navigatorState?.pushAndRemoveUntil(
+      currentState.pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (context) => nextPage,
         ),
@@ -31,7 +43,7 @@ class NavigationService {
     required String routeName,
     dynamic arguments,
   }) =>
-      _navigatorState?.pushNamed(
+      currentState.pushNamed(
         routeName,
         arguments: arguments,
       );
@@ -40,7 +52,7 @@ class NavigationService {
     required String routeName,
     dynamic arguments,
   }) =>
-      _navigatorState?.pushReplacementNamed(
+      currentState.pushReplacementNamed(
         routeName,
         arguments: arguments,
       );
@@ -49,7 +61,7 @@ class NavigationService {
     required String routeName,
     dynamic arguments,
   }) =>
-      _navigatorState?.pushNamedAndRemoveUntil(
+      currentState.pushNamedAndRemoveUntil(
         routeName,
         (Route<dynamic> route) => false,
         arguments: arguments,
